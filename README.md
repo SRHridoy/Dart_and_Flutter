@@ -432,3 +432,222 @@ Function returnFunc() {
 String shortFunc() => 'I am a short-hand function';
 
 ```
+
+> Class :
+
+```dart
+void main() {
+  //camelCase
+  //PascalCase
+
+//Here we instantiated again and again it's not the right way...
+  // print(Cookie().shape);
+  // print('${Cookie().size} cm');
+  // Cookie().backing();
+  // final isCookieCooling = Cookie().isCooling();
+  // print(isCookieCooling);
+
+//So we have to create one instance using ref. variable:
+  //Cookie cookie = Cookie();
+  final cookie = Cookie();//here, cookie is final but it's properties aren't final...
+  cookie.backing();
+  print(cookie.shape);
+  cookie.shape = 'Triangle';
+  print(cookie.shape);
+}
+
+class Cookie {
+  //variables/properties
+  String shape = 'Circle';
+  double size = 15.2; //cm
+
+  //functions/methods
+  void backing() {
+    print('Baking has started!');
+  }
+
+  bool isCooling() {
+    return false;
+  }
+}
+
+```
+
+>Constructors:
+
+```dart
+void main() {
+  final cookie = Cookie('Rectangle', 21.5); //new is optional...
+
+   // Using named constructors
+  Cookie cookie2 = Cookie.square(6.0);
+}
+
+class Cookie {
+  final String shape;
+  final double size;
+  //Constructor:
+  //Cookie(this.shape, this.size);//valid and if we don't need anything more we can use it...
+  
+  //Perameterized Constructor:
+  Cookie(this.shape, this.size) {
+    print(
+        this); //This is an instance of a class. It indicate the current instance or object...
+    print('Coookie Constructor called!');
+    baking();
+  }
+
+  //Default constructor with named parameters:
+ // Cookie({required this.shape, required this.size});
+
+ // Named constructor
+  Cookie.square(double size) : this('square', size);
+
+ 
+  //method:
+  void baking() {
+    print(
+        'Your cookie which is of the shape $shape and size $size cm is baking!');
+  }
+}
+
+```
+
+>Private Variables, Getters and Setters :
+
+```dart
+void main() {
+  final cookie = Cookie(shape: 'Circle', size: 20);
+  print(cookie.height);
+
+  cookie.setHeight = 15;
+  print(cookie.height);
+}
+
+class Cookie {
+  final String shape;
+  final double size;
+
+  Cookie({required this.shape, required this.size});
+
+  //Private variable :There no keyword for private, we have to put Underscrore(_) before any variable name to make it private...Private
+  int _height = 4;
+  int _width = 5;
+  //NB: Private variables in dart are private for a file, not to a class.
+
+  //Getters :
+  int get height => _height;
+  //Setters :
+  set setHeight(int h) {
+    _height = h;
+  }
+
+  int calculateSize() {
+    return _height * _width;
+  }
+}
+```
+
+>Static variables and Static Functions:
+
+```dart
+void main() {
+  //Here, using static, we don't need to create objects and it saves memory...
+  print(Constants.greeting);
+  print(Constants.bye);
+  print(Constants.giveMeSomeValue());
+}
+
+class Constants {
+  Constants() {
+    print('Constructor is called!');
+  }
+
+  //Static variable:
+  static String greeting = 'Hello, how are you?';
+  static String bye = 'Bye!';
+
+  //Static functions: non-static variable can't be accessed here.
+  static int giveMeSomeValue() {
+    return 10;
+  }
+}
+
+```
+
+>Inheritance : 
+```dart
+void main() {
+  //Inheritance
+  //If there is a"is-a" relation then, Inheritance will come...
+  //Object Oriented Programming(OOP)
+
+  //Dart doesn't support multiple inheritance to ignore ambiguities...
+
+  Car car = Car();
+  print(car.isEngineWorking);
+  print(car.noOfWheels);
+
+  Truck truck = Truck();
+  print(truck.noOfWheels);
+  print(truck.isEngineWorking);
+
+  Vehicle car2 = Car();
+  print(car2.isEngineWorking);
+  //we can use as to get sepecial functionality of cars:
+  print((car2 as Car).noOfWheels);
+
+  //as demonstration: in dynamic we can't access the dedicated properties but if we use as int, then we can use all the dedicated properties of it...
+  dynamic someValue = 10;
+  print((someValue as int).isOdd);
+  //But not recommended, we can use , var, final or the exact type...
+
+  //No we can use the properties of SomeClass as Vehicle extends this:
+  print(car.greeting);
+
+  //Vehicle doesn't have speed, someclass has and here someclass has accelerate and vehicle also but here name should be same to override, return type does't matter...
+  print(car.speed);
+  print(car.accelerate());
+}
+
+class SomeClass {
+  final String greeting = 'Hello,Vehicles!';
+  int speed = 15;
+
+  void accelerate() {
+    speed += 30;
+  }
+}
+
+class Vehicle extends SomeClass {
+  bool isEngineWorking = false;
+  bool isLightOn = true;
+
+  @override
+  int accelerate() {
+    speed += 10;
+    return speed;
+  }
+}
+
+class Car extends Vehicle {
+  int noOfWheels = 4;
+
+  void printSomething() {
+    print(noOfWheels);
+  }
+}
+
+class Truck extends Vehicle {
+  int noOfWheels = 8;
+
+  void printSomething() {
+    print(noOfWheels);
+  }
+}
+```
+
+
+
+
+
