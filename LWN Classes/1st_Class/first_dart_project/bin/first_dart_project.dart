@@ -77,7 +77,7 @@ void main() {
 
   //Add in map:
   map['subject'] = 'cse';
-  map.addAll({'isAdult':true});
+  map.addAll({'isAdult': true});
   print(map);
   print(map['name']);
 
@@ -92,4 +92,5 @@ void main() {
 
   List<String> favLang = map['Favourite languages'];
   print(favLang[2]);
+  
 }
