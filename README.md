@@ -691,6 +691,205 @@ class Truck implements Vehicle {
 }
 ```
 
+>Abstruct Classes : 
+# Abstract Class Rules in Dart
 
+## Key Rules of Abstract Classes
+
+1. **An Abstract Class Cannot Be Instantiated**  
+   - We cannot create an object of an abstract class directly.
+
+2. **Extending an Abstract Class**  
+   - When we **extend** an abstract class:
+     - We inherit all **non-abstract members**.
+     - We must override only the **abstract methods**.
+       Variables or properties do not require overriding unless we want to modify them.
+
+3. **Implementing an Abstract Class**  
+   - When we **implement** an abstract class:
+     - We must override **all members** of the class, including methods and variables.
+     - For variables, we need to explicitly define their **getter** and **setter**.
+
+---
+
+## Key Takeaways from the Example
+
+1. **Recursive Getter and Setter Issue**  
+   - If a getter or setter references itself, it leads to **infinite recursion**, causing a runtime error (stack overflow).
+
+2. **Solution: Use a Private Backing Field**  
+   - Introduce a **private field** (e.g., `_noOfWheels`) to store the value and access it through the getter and setter. This avoids recursion and ensures proper encapsulation.
+
+3. **Practical Usage**  
+   - Abstract classes are powerful for defining shared behaviors while allowing flexibility for subclasses or implementing classes to define specific details.
+
+---
+
+## Example Code
+
+```dart
+void main() {
+  final car = Car();
+  car.accelerate();
+  final truck = Truck();
+  print('Truck wheels: ${truck.noOfWheels}');
+}
+
+abstract class Vehicle {
+  void accelerate();
+  int noOfWheels = 10;
+}
+
+// Extending an abstract class
+class Car extends Vehicle {
+  @override
+  void accelerate() {
+    print('Accelerating the Car, Wheels: $noOfWheels');
+  }
+}
+
+// Implementing an abstract class
+class Truck implements Vehicle {
+  int _noOfWheels = 8;
+
+  @override
+  void accelerate() {
+    print('Accelerating the Truck');
+  }
+
+  @override
+  int get noOfWheels => _noOfWheels;
+
+  @override
+  set noOfWheels(int value) {
+    _noOfWheels = value;
+  }
+}
+```
+
+# Method Overloading and Operator Overloading in Dart
+
+## Method Overloading in Dart
+
+Dart **does not** support method overloading.  
+In other languages like Java or C++, you can define multiple methods with the same name but different parameters. Dart, however, focuses on simplicity and achieves similar functionality with **optional parameters**.
+
+### Example using Optional Parameters:
+
+```dart
+class Calculator {
+  int add(int a, [int b = 0]) {
+    return a + b;
+  }
+}
+
+void main() {
+  final calc = Calculator();
+  print(calc.add(5));     // Output: 5
+  print(calc.add(5, 10)); // Output: 15
+}
+```
+# Operator Overloading in Dart
+
+Dart **supports operator overloading**.  
+We can overload operators like `+`, `-`, `*`, etc., for custom classes using the `operator` keyword.
+
+## Example of Overloading the `+` Operator:
+
+```dart
+class Point {
+  int x, y;
+
+  Point(this.x, this.y);
+
+  // Overloading the '+' operator
+  Point operator +(Point other) {
+    return Point(x + other.x, y + other.y);
+  }
+
+  @override
+  String toString() => 'Point($x, $y)';
+}
+
+void main() {
+  Point p1 = Point(2, 3);
+  Point p2 = Point(4, 5);
+
+  Point result = p1 + p2; // Using overloaded '+' operator
+  print(result);          // Output: Point(6, 8)
+}
+```
+
+>Summary
+ - Method Overloading: ❌ Not supported in Dart. Use optional parameters instead.
+ - Operator Overloading: ✅ Supported using the operator keyword.
+
+ # OOPS :
+ ```dart
+// Object-Oriented Programming (OOP) Concepts in Dart
+
+void main() {
+  // 1. **Polymorphism**: 
+  // Demonstrates method overriding where different classes (Cat and Dog) can 
+  // implement the same method (sound) in their own way.
+  Animal cat = Cat();
+  cat.sound();  // Output: Cat making sound
+  cat = Dog();
+  cat.sound();  // Output: Dog making sound
+
+  // 2. **Abstraction**: 
+  // Hides the internal details of the Animal class and allows interaction 
+  // with objects through the Animal interface (abstract class).
+  Animal anim = Cat();
+  anim.sound();  // Output: Cat making sound
+  Animal anim2 = Dog();
+  anim2.sound();  // Output: Dog making sound
+
+  // 3. **Inheritance**: 
+  // Animal class is extended by Cat and Dog classes, inheriting the 
+  // common structure but allowing customization of the sound() method.
+
+  // 4. **Encapsulation**: 
+  // This can be achieved by declaring variables or methods as `private` 
+  // using the `_` symbol, ensuring data security and hiding implementation details.
+}
+
+// Abstract class representing an Animal
+abstract class Animal {
+  // Abstract method that will be implemented by subclasses
+  void sound();
+}
+
+// Class representing a Cat, which is a type of Animal
+class Cat extends Animal {
+  @override
+  void sound() {
+    print('Cat making sound');
+  }
+}
+
+// Class representing a Dog, which is a type of Animal
+class Dog extends Animal {
+  @override
+  void sound() {
+    print('Dog making sound');
+  }
+}
+
+ ```
+
+ # Summary of OOP Concepts in the Code
+
+## 1. Polymorphism:
+- The `sound()` method is overridden in both `Cat` and `Dog` classes, demonstrating polymorphism where the same method name produces different outputs based on the object type.
+
+## 2. Abstraction:
+- The `Animal` class is declared as an abstract class. The `sound()` method is abstract, meaning the concrete classes `Cat` and `Dog` must provide their own implementation. This hides the internal implementation details.
+
+## 3. Inheritance:
+- `Cat` and `Dog` inherit from the `Animal` class. They share the same structure but can provide different behaviors for the `sound()` method.
+
+## 4. Encapsulation:
+- Though not explicitly shown in the code, encapsulation can be demonstrated by declaring private variables or methods within a class. For example, variables in a class can be marked private by prefixing them with an underscore (`_`), ensuring that their values cannot be directly accessed from outside the class.
 
 
