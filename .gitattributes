@@ -1,0 +1,4 @@
+*.zip filter=lfs diff=lfs merge=lfs -text
+*.mp4 filter=lfs diff=lfs merge=lfs -text
+LWN[[:space:]]Classes/10th[[:space:]]Class/Assignment10/Assignment10.mp4 filter=lfs diff=lfs merge=lfs -text
+LWN[[:space:]]Classes/10th[[:space:]]Class/Assignment10.zip filter=lfs diff=lfs merge=lfs -text
