@@ -12,22 +12,27 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Page'),
+        backgroundColor: Colors.deepOrange,
+        title: Text('Counter App Using GetX',style: TextStyle(color: Colors.white),),
       ),
       body: GetBuilder<HomeController>(
         builder: (_) {
-          return Center(
-              child: Text(
-            homeController.number.toString(),
-            style: TextStyle(fontSize: 30),
-          ));
+          return Container(
+            width: MediaQuery.sizeOf(context).width,
+            height: MediaQuery.sizeOf(context).height,
+            color: Colors.orangeAccent[100],
+            child: Center(
+                child: Text(
+              homeController.number.toString(),
+              style: TextStyle(fontSize: 30),
+            )),
+          );
         },
       ),
       floatingActionButton: FloatingActionButton(onPressed: () {
         homeController.incrementNumber();
-
-      },shape:BeveledRectangleBorder(),
-      child: Icon(Icons.add),),
+      },shape:CircleBorder(),
+      child: Icon(Icons.add,color: Colors.white,),backgroundColor: Colors.deepOrange,),
     );
   }
 }
