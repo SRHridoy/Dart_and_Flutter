@@ -31,8 +31,8 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(onPressed: () {
         homeController.incrementNumber();
-      },shape:CircleBorder(),
-      child: Icon(Icons.add,color: Colors.white,),backgroundColor: Colors.deepOrange,),
+      },shape:CircleBorder(),backgroundColor: Colors.deepOrange,
+      child: Icon(Icons.add,color: Colors.white,),),
     );
   }
 }
