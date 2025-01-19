@@ -34,7 +34,7 @@ migrate_working_dir/
 /build/
 
 #api key:
-firebase_options.dart
+lib/firebase_options.dart
 
 # Symbolication related
 app.*.symbols
