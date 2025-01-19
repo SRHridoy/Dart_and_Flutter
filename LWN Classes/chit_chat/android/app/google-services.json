@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "721812133073",
+    "project_id": "fir-learning-fb04f",
+    "storage_bucket": "fir-learning-fb04f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:721812133073:android:30d0b7903058cabceee1f0",
+        "android_client_info": {
+          "package_name": "com.example.chit_chat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3aMUBGGIZzDno4Uj-SLCnHSMiAbzxvXc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
