@@ -2,54 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_get_api_integration/home_controller.dart';
 import 'package:getx_get_api_integration/product_model.dart';
+import 'package:getx_get_api_integration/product_shimmer.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
-  final HomeController homeController = Get.put(HomeController());
+  HomeController homeController = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFF009688), Color(0xFF80CBC4)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            backgroundColor: const Color(0xFF004D40),
-            title: const Text(
-              'Get API Integration',
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            ),
-            centerTitle: true,
-            elevation: 4,
-          ),
-          body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: GetBuilder<HomeController>(
-              builder: (controller) {
-                return homeController.isLoading
-                    ? const Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.white,
+      appBar: AppBar(
+        title: Text('Products'),
+      ),
+      body: GetBuilder<HomeController>(
+        builder: (controller) {
+          return homeController.isLoading
+              ? ProductShimmer()
+              : Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                    ),
+                    itemCount: homeController.products.length,
+                    itemBuilder: (context, index) {
+                      return productWidget(index);
+                    },
                   ),
-                )
-                    : ListView.builder(
-                  itemCount: homeController.products.length,
-                  itemBuilder: (context, index) {
-                    return productWidget(index);
-                  },
-                );
-              },
-            ),
-          ),
-        ),
+              );
+        },
       ),
     );
   }
@@ -57,41 +41,60 @@ class HomePage extends StatelessWidget {
   Widget productWidget(int index) {
     ProductModel product = homeController.products[index];
     return Card(
-      color: const Color(0xFFB2DFDB),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-      elevation: 4,
-      margin: const EdgeInsets.symmetric(vertical: 8),
-      child: ListTile(
-        leading: ClipRRect(
-          borderRadius: BorderRadius.circular(8),
-          child: Image.network(
+        child: Padding(
+      padding: const EdgeInsets.all(7.0),
+      child: Column(
+        children: [
+          Image.network(
             product.image!,
+            height: 80,
+            width: 80,
             fit: BoxFit.cover,
-            width: 60,
-            height: 60,
           ),
-        ),
-        title: Text(
-          product.title!,
-          overflow: TextOverflow.ellipsis,
-          style: const TextStyle(
-            color: Color(0xFF004D40),
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
+          SizedBox(
+            height: 8,
           ),
-        ),
-        subtitle: Text(
-          product.description!,
-          overflow: TextOverflow.ellipsis,
-          maxLines: 2,
-          style: const TextStyle(
-            color: Color(0xFF00695C),
-            fontSize: 14,
+          Text(
+            product.title!,
+            style: TextStyle(
+              fontSize: 18,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
-        ),
+          SizedBox(
+            height: 8,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    'Price:',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    product.price.toString(),
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Icon(
+                    Icons.star,
+                    color: Colors.orange,
+                  ),
+                  Text(
+                    product.rating!.rate.toString(),
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ],
+          )
+        ],
       ),
-    );
+    ));
   }
 }
