@@ -21,6 +21,7 @@ class HomeController extends GetxController {
     homeService = HomeService();
     getProducts();
     getCategories();
+    getProductsByCategory('');
     super.onInit();
   }
 
@@ -74,7 +75,7 @@ class HomeController extends GetxController {
           await homeService.getProductsByCategory(category);
       if(response.statusCode==200){
         var data = jsonDecode(response.body);
-        for(int i = 0;i < data.lengh; i++){
+        for(int i = 0;i < data.length; i++){
           productsByCategory.add(ProductModel.fromJson(data[i]));
 
         }

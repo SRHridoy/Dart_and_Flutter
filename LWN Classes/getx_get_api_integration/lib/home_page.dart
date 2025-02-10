@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_get_api_integration/categories_shimmer.dart';
 import 'package:getx_get_api_integration/home_controller.dart';
+import 'package:getx_get_api_integration/product_details_page.dart';
 import 'package:getx_get_api_integration/product_model.dart';
 import 'package:getx_get_api_integration/product_shimmer.dart';
+import 'package:getx_get_api_integration/products_view_by_category.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -33,6 +35,7 @@ class HomePage extends StatelessWidget {
                             onTap: () {
                               homeController.getProductsByCategory(
                                   homeController.categories[index]);
+                              Get.to(() => ProductsViewByCategory(homeController.categories[index].toUpperCase()));
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -91,61 +94,66 @@ class HomePage extends StatelessWidget {
 
   Widget productWidget(int index) {
     ProductModel product = homeController.products[index];
-    return Card(
-        child: Padding(
-      padding: const EdgeInsets.all(7.0),
-      child: Column(
-        children: [
-          Image.network(
-            product.image!,
-            height: 80,
-            width: 80,
-            fit: BoxFit.cover,
-          ),
-          SizedBox(
-            height: 8,
-          ),
-          Text(
-            product.title!,
-            style: TextStyle(
-              fontSize: 18,
-              overflow: TextOverflow.ellipsis,
+    return GestureDetector(
+      onTap: () {
+        Get.to(ProductDetailsPage(product));
+      },
+      child: Card(
+          child: Padding(
+        padding: const EdgeInsets.all(7.0),
+        child: Column(
+          children: [
+            Image.network(
+              product.image!,
+              height: 80,
+              width: 80,
+              fit: BoxFit.cover,
             ),
-          ),
-          SizedBox(
-            height: 8,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Text(
-                    'Price:',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    product.price.toString(),
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ],
+            SizedBox(
+              height: 8,
+            ),
+            Text(
+              product.title!,
+              style: TextStyle(
+                fontSize: 18,
+                overflow: TextOverflow.ellipsis,
               ),
-              Row(
-                children: [
-                  Icon(
-                    Icons.star,
-                    color: Colors.orange,
-                  ),
-                  Text(
-                    product.rating!.rate.toString(),
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ],
-          )
-        ],
-      ),
-    ));
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      'Price:',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      product.price.toString(),
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.star,
+                      color: Colors.orange,
+                    ),
+                    Text(
+                      product.rating!.rate.toString(),
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ],
+            )
+          ],
+        ),
+      )),
+    );
   }
 }

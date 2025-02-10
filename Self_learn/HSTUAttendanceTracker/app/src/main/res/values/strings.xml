@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">HSTU Attendance Tracker</string>
+    <string name="add_class_button">add_class_button</string>
+    <string name="add_new_class">Add New Class</string>
+    <string name="class_name">Class Name</string>
+    <string name="course_name">Course Name</string>
+    <string name="cancel">Cancel</string>
+    <string name="class_name_tv">Class Name</string>
+    <string name="course_name_tv">Course Name</string>
+</resources>

@@ -12,6 +12,7 @@ void main() async {
 Future<void> setup() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setupFirebase();
+  await registerServices();
 }
 
 class ChitChatApp extends StatelessWidget {
@@ -22,7 +23,8 @@ class ChitChatApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.black, primary: Colors.black),
         useMaterial3: true,
         textTheme: GoogleFonts.montserratAlternatesTextTheme(),
       ),
